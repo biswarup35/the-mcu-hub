@@ -1,0 +1,35 @@
+$primary-color: #a2d2ff;
+$primary-color-light: #bde0fe;
+
+$secondary-color: #ffafcc;
+$secondary-color-light: #ffc8dd;
+
+$tertiary-color: #cdb4db;
+
+.variant-dense {
+  min-height: 45px;
+}
+.variant-regular {
+  min-height: 60px;
+}
+
+.color-primary {
+  background-color: $primary-color;
+  color: rgb(0, 0, 0);
+}
+.color-primary-light {
+  background-color: $primary-color-light;
+  color: rgb(0, 0, 0);
+}
+.color-secondary {
+  background-color: $secondary-color;
+  color: rgb(0, 0, 0);
+}
+.color-secondary-light {
+  background-color: $secondary-color-light;
+  color: rgb(0, 0, 0);
+}
+.inherit {
+  background-color: inherit;
+  color: inherit;
+}
