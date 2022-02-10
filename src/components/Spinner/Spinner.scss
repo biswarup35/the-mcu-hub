@@ -1,7 +1,3 @@
-$primary-color: #a2d2ff;
-
-$secondary-color: #ffafcc;
-
 .spinner {
   background-color: transparent;
   border: 8px solid #f3f3f3;
@@ -11,10 +7,10 @@ $secondary-color: #ffafcc;
   animation: spin 2s linear infinite;
 }
 .spinner-main {
-  border-top: 8px solid $primary-color;
+  border-top: 8px solid #1c0c5b;
 }
 .spinner-secondary {
-  border-top: 8px solid $secondary-color;
+  border-top: 8px solid #916bbf;
 }
 
 @keyframes spin {
