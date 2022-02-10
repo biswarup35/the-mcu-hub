@@ -16,10 +16,8 @@ const AppBar: FC<Partial<AppBarProps>> = (props) => {
   const appBarColor = useMemo(
     () =>
       new Map([
-        ["primary", "color-primary"],
-        ["primary-light", "color-primary-light"],
-        ["secondary", "color-secondary"],
-        ["secondary-light", "color-secondary-light"],
+        ["primary", "bg-primary"],
+        ["secondary", "bg-secondary"],
         ["inherit", "inherit"],
       ]),
     []
