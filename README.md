@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+<div align="center" >
+<img src="public/logo.svg" />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+</div>
+<h3>Description</h3>
+<p>The MCU HUB is a Web Application that lets you brows all details of <em>Marvel Cinematic Universe</em> including upcoming movies. The MCU hub is a grate platform for all MCU enthusiasts.</p>
 
-## Available Scripts
+<h3>Tech Stack</h3>
+<div>
+<img src="https://img.shields.io/badge/-React.js-blue?logo=react&logoColor=&style=for-the-badge" alt="React.js"/>
 
-In the project directory, you can run:
+<img src="https://img.shields.io/badge/-TypeScript-white?logo=typescript&logoColor=&style=for-the-badge" alt="Typescript"/>
+</div>
+<img src="https://img.shields.io/badge/-Valtio-green?logo=valtio&&style=for-the-badge" alt="Valtio"/>
+<img src="https://img.shields.io/badge/-Axios-white?logo=axios&style=for-the-badge" alt="Axios"/>
+<img src="https://img.shields.io/badge/-Clsx-pink?logo=clsx&style=for-the-badge" alt="clsx"/>
+<img src="https://img.shields.io/badge/-SASS-black?logo=sass&style=for-the-badge" alt="sass"/>
+</div>
 
-### `yarn start`
+<h3>Project</h3>
+<h4>Front-end</h4>
+<p>The project is Deployed on Netlify </p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<h3>Run Locally</h3>
+<p>To run the project locally, you can use the following command:</p>
+<p>Before running the command, make sure you have cloned or fork the repository properly.</p>
+<p>After cloning the repository, you need to edit the <code>.env.local</code> file and add <code>REACT_APP_BASE_URL</code> variable and put your "url".</p>
+<p>Then, you can run the command:</p>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<p>To run the project in dev mode: </p>
+<p><code>yarn dev</code></p>
 
-### `yarn test`
+<p>To build the project:</p>
+<p><code>yarn build</code></p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<p>To start the project:</p>
+<p><code>yarn start</code></p>
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<h4>Back-end</h4>
+<p>You can find rest details on this repository: <a href="https://github.com/biswarup35/the-movie-api">The Movie API</a>
