@@ -1,11 +1,22 @@
+import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home, NotFound } from "./pages";
+import { Home, Movie, NotFound } from "./pages";
+import { Navbar, Footer, Loading } from "./views";
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <React.Fragment>
+      <Navbar />
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path=":show_id" element={<Movie />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      <Footer />
+    </React.Fragment>
   );
 }
 

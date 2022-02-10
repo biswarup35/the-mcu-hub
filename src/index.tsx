@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ReactDOM from "react-dom";
-import "./style/global.css";
+import "./style/global.scss";
 import App from "./App";
 
 ReactDOM.render(
