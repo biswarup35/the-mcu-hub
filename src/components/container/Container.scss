@@ -1,24 +1,17 @@
-.container-sm {
+.container {
   margin-left: auto;
   margin-right: auto;
+  width: -webkit-fill-available;
+}
+.container-sm {
   min-width: 600px;
 }
 .container-md {
-  margin-left: auto;
-  margin-right: auto;
   max-width: 960px;
 }
 .container-lg {
-  margin-left: auto;
-  margin-right: auto;
   max-width: 1200px;
 }
 .container-xl {
-  margin-left: auto;
-  margin-right: auto;
   max-width: 1920px;
-}
-.px-2 {
-  padding-left: 16px;
-  padding-right: 16px;
 }
