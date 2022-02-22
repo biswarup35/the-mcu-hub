@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -5,36 +6,75 @@ import {
   Card,
   CardImage,
   CardContainer,
+  Button,
 } from "../components";
-import { useMovie } from "../hooks";
-import { Loading } from "../views";
+import { useMovie, useList } from "../hooks";
 
 const Movie = () => {
-  const { data, loading } = useMovie();
+  const { data } = useMovie();
+  const { add, remove, inWatchList } = useList();
+  const inTheWatchList = inWatchList(data.show_id);
+  const watchListHandler = () => {
+    if (inTheWatchList) {
+      remove(data.show_id);
+    } else {
+      add(data.show_id);
+    }
+  };
 
-  if (loading || !data) {
-    return <Loading />;
-  }
   return (
     <div>
-      <Container className="my-2" maxWidth="md">
-        <Grid container>
-          <Grid
-            style={{ justifySelf: "center", alignSelf: "center" }}
-            item
-            xs={12}
-            md={6}
-          >
-            <img src={data.poster} alt="poster" />
+      <div className="bg-primary">
+        <Container className="py-3 radius-1" maxWidth="lg">
+          <Grid container>
+            <Grid
+              style={{ justifySelf: "center", alignSelf: "center" }}
+              item
+              xs={12}
+              md={6}
+            >
+              <img src={data.poster} alt="poster" />
+            </Grid>
+            <Grid
+              style={{ justifySelf: "center", width: "100%" }}
+              item
+              xs={12}
+              md={6}
+            >
+              <div className="my-2">
+                <h1 style={{ textAlign: "center" }}>{data?.title ?? ""}</h1>
+              </div>
+              <Stack direction="row">
+                <Button
+                  className="py-1 radius-1 bg-tertiary full-width"
+                  onClick={watchListHandler}
+                >
+                  {inTheWatchList
+                    ? "Remove from Watch List"
+                    : "Add to Watch List"}
+                </Button>
+                <div className="full-width">
+                  <Link to="/booking">
+                    <Button className="py-1 radius-1 bg-tertiary full-width">
+                      Book
+                    </Button>
+                  </Link>
+                </div>
+              </Stack>
+            </Grid>
           </Grid>
-          <Grid
-            style={{ justifySelf: "center", alignSelf: "center" }}
-            item
-            xs={12}
-            md={6}
-          >
-            <h1>{data?.title ?? ""}</h1>
-            {data.meta?.map((meta) => (
+        </Container>
+      </div>
+      <Container className="my-3" maxWidth="lg">
+        <Grid container gap={3}>
+          <Grid item xs={12} md={6}>
+            <h4 style={{ textAlign: "center" }}>Movie Plot</h4>
+            <p style={{ lineHeight: "1.5rem" }} className="py-2">
+              {data.synopsis}
+            </p>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            {data.meta?.map((meta: any) => (
               <Stack
                 style={{ marginTop: 4 }}
                 direction="row"
@@ -48,22 +88,15 @@ const Movie = () => {
           </Grid>
         </Grid>
       </Container>
-      <Container maxWidth="md">
-        <h4 style={{ textAlign: "center" }}>Movie Plot</h4>
-        <p style={{ textAlign: "center" }} className="py-2">
-          {data.synopsis}
-        </p>
-      </Container>
       <Container className="my-2" maxWidth="lg">
         <h4 className="py-2">Cast and Crew</h4>
         <Grid container gap={2}>
-          {data.cast?.map((cast, index) => (
+          {data.cast?.map((cast: any, index: number) => (
             <Grid key={index} item xs={4} sm={3} md={2}>
               <Card
                 style={{ maxWidth: 180, minWidth: 110 }}
                 className="bg-primary full-height"
               >
-                {/*  */}
                 <CardImage
                   src={
                     cast.image.includes("pizza-pie")

@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { proxy, useSnapshot } from "valtio";
 
 interface IMovie {
+  show_id: string;
   title: string;
   poster: string;
   synopsis: string;
@@ -19,29 +19,35 @@ interface IMovie {
   photos: string[];
 }
 
-const state = proxy({
-  loading: true,
-  data: {} as IMovie,
+const getMovie = async (show_id: string) => {
+  let res = await fetch(
+    `${process.env.REACT_APP_BASE_URL}/movies?show_id=${show_id}`
+  );
+  return await res.json();
+};
+
+const movie = proxy<{
+  id: string;
+  loading: boolean;
+  data: Promise<IMovie>;
+  setId: (id: string) => void;
+}>({
+  id: "",
+  loading: false,
+  data: getMovie("black_widow_2021"),
+  setId: (id: string) => {
+    movie.data = getMovie(id);
+  },
 });
 
 const useMovie = () => {
   const { show_id = "black_widow_2021" } = useParams();
-  const { data, loading } = useSnapshot(state);
+  const { setId, data, loading } = useSnapshot(movie);
 
   useEffect(() => {
-    getMovie(show_id);
-  }, [show_id]);
+    setId(show_id);
+  }, [show_id, setId]);
   return { data, loading };
 };
 
 export default useMovie;
-
-export const getMovie = async (show_id: string) => {
-  const { data } = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/movies?show_id=${show_id}`
-  );
-  if (data) {
-    state.data = data;
-    state.loading = false;
-  }
-};
