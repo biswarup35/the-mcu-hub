@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import { AppBar, Container, Toolbar, Button } from "../../components";
 import Logo from "../../Logo";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const loginHandler = () => {
+    if (isAuthenticated) {
+      logout();
+    } else {
+      loginWithRedirect();
+    }
+  };
   return (
     <AppBar color="primary">
       <Container maxWidth="lg">
@@ -17,8 +26,12 @@ const Navbar = () => {
               Watch List
             </Button>
           </Link>
-          <Button color="inherit" className="py-1 px-2 my-1 mx-1 radius-1">
-            Login
+          <Button
+            onClick={loginHandler}
+            color="inherit"
+            className="py-1 px-2 my-1 mx-1 radius-1"
+          >
+            {isAuthenticated ? "Logout" : "Login"}
           </Button>
         </Toolbar>
       </Container>
