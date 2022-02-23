@@ -1,0 +1,11 @@
+input[type="checkbox"] {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+:disabled + label {
+  cursor: not-allowed;
+}

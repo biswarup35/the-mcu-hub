@@ -1,21 +1,113 @@
 import { proxy } from "valtio";
 
-// const add = (num1:number, num2: number) => num1 + num2;
-
-const ticket = proxy<{
-  movie: string;
-  seats: {
-    price: number;
-  }[];
-  price: number;
-  setPrice(price: number): void;
-}>({
+const ticket = proxy({
   movie: "",
-  seats: [],
-  price: 0,
-  setPrice: () => {
-    ticket.price = 0;
+  rows: [
+    [
+      { name: "a1", price: 100, isBooked: false, isSelected: false },
+      { name: "a2", price: 100, isBooked: false, isSelected: false },
+      { name: "a3", price: 100, isBooked: false, isSelected: false },
+      { name: "a4", price: 100, isBooked: false, isSelected: false },
+      { name: "a5", price: 100, isBooked: false, isSelected: false },
+      { name: "a6", price: 100, isBooked: true, isSelected: false },
+      { name: "a7", price: 100, isBooked: false, isSelected: false },
+      { name: "a8", price: 100, isBooked: false, isSelected: false },
+      { name: "a9", price: 100, isBooked: false, isSelected: false },
+      { name: "a10", price: 100, isBooked: false, isSelected: false },
+      { name: "a11", price: 100, isBooked: false, isSelected: false },
+      { name: "a12", price: 100, isBooked: false, isSelected: false },
+    ],
+    [
+      { name: "b1", price: 150, isBooked: false, isSelected: false },
+      { name: "b2", price: 150, isBooked: false, isSelected: false },
+      { name: "b3", price: 150, isBooked: false, isSelected: false },
+      { name: "b4", price: 150, isBooked: false, isSelected: false },
+      { name: "b5", price: 150, isBooked: false, isSelected: false },
+      { name: "b6", price: 150, isBooked: false, isSelected: false },
+      { name: "b7", price: 150, isBooked: false, isSelected: false },
+      { name: "b8", price: 150, isBooked: true, isSelected: false },
+      { name: "b9", price: 150, isBooked: false, isSelected: false },
+      { name: "b10", price: 150, isBooked: false, isSelected: false },
+      { name: "b11", price: 150, isBooked: false, isSelected: false },
+      { name: "b12", price: 150, isBooked: false, isSelected: false },
+    ],
+    [
+      { name: "c1", price: 200, isBooked: false, isSelected: false },
+      { name: "c2", price: 200, isBooked: false, isSelected: false },
+      { name: "c3", price: 200, isBooked: false, isSelected: false },
+      { name: "c4", price: 200, isBooked: false, isSelected: false },
+      { name: "c5", price: 200, isBooked: false, isSelected: false },
+      { name: "c6", price: 200, isBooked: false, isSelected: false },
+      { name: "c7", price: 200, isBooked: false, isSelected: false },
+      { name: "c8", price: 200, isBooked: false, isSelected: false },
+      { name: "c9", price: 200, isBooked: false, isSelected: false },
+      { name: "c10", price: 200, isBooked: false, isSelected: false },
+      { name: "c11", price: 200, isBooked: false, isSelected: false },
+      { name: "c12", price: 200, isBooked: false, isSelected: false },
+    ],
+    [
+      { name: "d1", price: 250, isBooked: false, isSelected: false },
+      { name: "d2", price: 250, isBooked: false, isSelected: false },
+      { name: "d3", price: 250, isBooked: false, isSelected: false },
+      { name: "d4", price: 250, isBooked: false, isSelected: false },
+      { name: "d5", price: 250, isBooked: false, isSelected: false },
+      { name: "d6", price: 250, isBooked: false, isSelected: false },
+      { name: "d7", price: 250, isBooked: false, isSelected: false },
+      { name: "d8", price: 250, isBooked: false, isSelected: false },
+      { name: "d9", price: 250, isBooked: false, isSelected: false },
+      { name: "d10", price: 250, isBooked: false, isSelected: false },
+      { name: "d11", price: 250, isBooked: false, isSelected: false },
+      { name: "d12", price: 250, isBooked: false, isSelected: false },
+    ],
+    [
+      { name: "e1", price: 250, isBooked: false, isSelected: false },
+      { name: "e2", price: 250, isBooked: false, isSelected: false },
+      { name: "e3", price: 250, isBooked: false, isSelected: false },
+      { name: "e4", price: 250, isBooked: false, isSelected: false },
+      { name: "e5", price: 250, isBooked: false, isSelected: false },
+      { name: "e6", price: 250, isBooked: false, isSelected: false },
+      { name: "e7", price: 250, isBooked: false, isSelected: false },
+      { name: "e8", price: 250, isBooked: false, isSelected: false },
+      { name: "e9", price: 250, isBooked: false, isSelected: false },
+      { name: "e10", price: 250, isBooked: false, isSelected: false },
+      { name: "e11", price: 250, isBooked: false, isSelected: false },
+      { name: "e12", price: 250, isBooked: false, isSelected: false },
+    ],
+    [
+      { name: "f1", price: 275, isBooked: false, isSelected: false },
+      { name: "f2", price: 275, isBooked: false, isSelected: false },
+      { name: "f3", price: 275, isBooked: false, isSelected: false },
+      { name: "f4", price: 275, isBooked: false, isSelected: false },
+      { name: "f5", price: 275, isBooked: false, isSelected: false },
+      { name: "f6", price: 275, isBooked: false, isSelected: false },
+      { name: "f7", price: 275, isBooked: false, isSelected: false },
+      { name: "f8", price: 275, isBooked: false, isSelected: false },
+      { name: "f9", price: 275, isBooked: false, isSelected: false },
+      { name: "f10", price: 275, isBooked: false, isSelected: false },
+      { name: "f11", price: 275, isBooked: false, isSelected: false },
+      { name: "f12", price: 275, isBooked: false, isSelected: false },
+    ],
+    [
+      { name: "g1", price: 275, isBooked: false, isSelected: false },
+      { name: "g2", price: 275, isBooked: false, isSelected: false },
+      { name: "g3", price: 275, isBooked: false, isSelected: false },
+      { name: "g4", price: 275, isBooked: false, isSelected: false },
+      { name: "g5", price: 275, isBooked: false, isSelected: false },
+      { name: "g6", price: 275, isBooked: false, isSelected: false },
+      { name: "g7", price: 275, isBooked: false, isSelected: false },
+      { name: "g8", price: 275, isBooked: false, isSelected: false },
+      { name: "g9", price: 275, isBooked: false, isSelected: false },
+      { name: "g10", price: 275, isBooked: false, isSelected: false },
+      { name: "g11", price: 275, isBooked: false, isSelected: false },
+      { name: "g12", price: 275, isBooked: false, isSelected: false },
+    ],
+  ],
+  selectSeat: (row: number, col: number, value: boolean) => {
+    ticket.rows[row][col].isSelected = value;
   },
+  selectedSeats: () =>
+    ticket.rows.flat().filter((seat) => seat.isSelected === true),
+  setMovie: (movie: string) => movie,
 });
 
 export default ticket;
