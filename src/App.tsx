@@ -8,6 +8,7 @@ import {
   Login,
   BookingOutlet,
   Booking,
+  LoginOutlet,
 } from "./pages";
 import { Navbar, Footer, Loading } from "./views";
 function App() {
@@ -21,7 +22,9 @@ function App() {
             <Route path=":show_id" element={<Movie />} />
           </Route>
           <Route path="/watch-list" element={<WatchList />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LoginOutlet />}>
+            <Route index element={<Login />} />
+          </Route>
           <Route path="/booking" element={<BookingOutlet />}>
             <Route index element={<Booking />} />
           </Route>
