@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { proxy, useSnapshot } from "valtio";
 
 interface IMovie {
@@ -40,8 +39,7 @@ const movie = proxy<{
   },
 });
 
-const useMovie = () => {
-  const { show_id = "black_widow_2021" } = useParams();
+const useMovie = (show_id: string) => {
   const { setId, data, loading } = useSnapshot(movie);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -11,7 +11,8 @@ import {
 import { useMovie, useList } from "../hooks";
 
 const Movie = () => {
-  const { data } = useMovie();
+  const { show_id } = useParams();
+  const { data } = useMovie(show_id ?? "");
   const { add, remove, inWatchList } = useList();
   const inTheWatchList = inWatchList(data.show_id);
   const watchListHandler = () => {
@@ -54,7 +55,7 @@ const Movie = () => {
                     : "Add to Watch List"}
                 </Button>
                 <div className="full-width">
-                  <Link to="/booking">
+                  <Link to={`/booking?q=${data.show_id}`}>
                     <Button className="py-1 radius-1 bg-tertiary full-width">
                       Book
                     </Button>
