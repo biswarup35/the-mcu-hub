@@ -1,4 +1,6 @@
 import { Link, useParams } from "react-router-dom";
+import { useSnapshot } from "valtio";
+import { commentBox } from "../App/comments";
 import {
   Container,
   Grid,
@@ -9,17 +11,15 @@ import {
   Button,
 } from "../components";
 import { useMovie, useList, useComments } from "../hooks";
-// import { IComments } from "../types";
-import { CommentForm, Comment } from "../views";
-import { commentBox } from "../App/comments";
-import { useSnapshot } from "valtio";
+import { CommentForm, Comments } from "../views";
 
 const Movie = () => {
   const { show_id } = useParams();
   const { data } = useMovie(show_id ?? "");
   const { add, remove, inWatchList } = useList();
-  const { comments } = useComments(data.id);
+
   const { show } = useSnapshot(commentBox);
+  const { comments } = useComments(data.id);
 
   const inTheWatchList = inWatchList(data.show_id);
   const watchListHandler = () => {
@@ -129,21 +129,13 @@ const Movie = () => {
           </Grid>
           {/* comment section */}
           <Grid item xs={12} md={5}>
-            <h4 className="py-2">Comments</h4>
+            <h4 className="py-2">{`Comments (${comments.length ?? 0})`}</h4>
             {show && (
               <div className="my-2">
                 <CommentForm parentId={data.id} />
               </div>
             )}
-            {comments?.map((comment) => (
-              <Stack key={comment.id}>
-                <Comment
-                  user={comment.content.user}
-                  text={comment.content.text}
-                  id={comment.id}
-                />
-              </Stack>
-            ))}
+            <Comments data={comments} />
           </Grid>
         </Grid>
       </Container>

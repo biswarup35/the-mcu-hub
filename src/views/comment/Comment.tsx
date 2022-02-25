@@ -8,10 +8,9 @@ interface IComment {
   user: string;
   text: string;
   id: string;
-  child?: IComment[];
 }
 
-const Comment: FC<IComment> = ({ user, text, id, child }) => {
+const Comment: FC<IComment> = ({ user, text, id }) => {
   // Showing comment form
   const [show, setShow] = useState(false);
   const { hide, showing } = useSnapshot(commentBox);
@@ -24,7 +23,7 @@ const Comment: FC<IComment> = ({ user, text, id, child }) => {
     showing();
   };
   return (
-    <Stack className="py-1">
+    <Stack>
       <h4>{user}</h4>
       <p>{text}</p>
       {!show && (

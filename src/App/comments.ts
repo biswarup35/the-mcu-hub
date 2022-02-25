@@ -14,6 +14,10 @@ const comments = proxy({
     comments.comments = getComments(parentId);
     console.log(comments.comments);
   },
+  update: false,
+  toggleUpdate: () => {
+    comments.update = !comments.update;
+  },
 });
 
 export const commentBox = proxy({

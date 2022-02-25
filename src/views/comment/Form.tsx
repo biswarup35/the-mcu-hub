@@ -2,6 +2,8 @@ import "./Form.scss";
 import { Button, Stack } from "../../components";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
+import state from "../../App/comments";
+import { useSnapshot } from "valtio";
 
 interface IForm {
   thread?: [];
@@ -10,7 +12,8 @@ interface IForm {
 }
 
 const Form: FC<IForm> = ({ thread, parentId, onCancel }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
+  const { toggleUpdate } = useSnapshot(state);
   const onSubmit = (data: any) => {
     const options = {
       method: "POST",
@@ -25,7 +28,13 @@ const Form: FC<IForm> = ({ thread, parentId, onCancel }) => {
     };
     fetch(`${process.env.REACT_APP_BASE_URL}/comments`, options)
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        toggleUpdate();
+        reset({
+          user: "",
+          text: "",
+        });
+      })
       .catch((err) => console.log(err));
   };
   return (
