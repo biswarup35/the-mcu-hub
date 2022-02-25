@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { proxy, useSnapshot } from "valtio";
 
 interface IMovie {
+  id: string;
   show_id: string;
   title: string;
   poster: string;

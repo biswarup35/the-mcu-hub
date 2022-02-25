@@ -8,12 +8,14 @@ import {
   CardContainer,
   Button,
 } from "../components";
-import { useMovie, useList } from "../hooks";
+import { useMovie, useList, useComments } from "../hooks";
 
 const Movie = () => {
   const { show_id } = useParams();
   const { data } = useMovie(show_id ?? "");
   const { add, remove, inWatchList } = useList();
+  const { comments } = useComments(data.id);
+
   const inTheWatchList = inWatchList(data.show_id);
   const watchListHandler = () => {
     if (inTheWatchList) {
@@ -90,33 +92,47 @@ const Movie = () => {
         </Grid>
       </Container>
       <Container className="my-2" maxWidth="lg">
-        <h4 className="py-2">Cast and Crew</h4>
         <Grid container gap={2}>
-          {data.cast?.map((cast: any, index: number) => (
-            <Grid key={index} item xs={4} sm={3} md={2}>
-              <Card
-                style={{ maxWidth: 180, minWidth: 110 }}
-                className="bg-primary full-height"
-              >
-                <CardImage
-                  src={
-                    cast.image.includes("pizza-pie")
-                      ? "http://via.placeholder.com/150x180"
-                      : cast.image
-                  }
-                  alt={cast.name}
-                />
-                <CardContainer>
-                  <Stack>
-                    <h6 style={{ textAlign: "center" }}>{cast.name}</h6>
-                    <h6 style={{ textAlign: "center", color: "GrayText" }}>
-                      {cast.role}
-                    </h6>
-                  </Stack>
-                </CardContainer>
-              </Card>
-            </Grid>
-          ))}
+          <Grid item xs={12} md={7}>
+            <h4 className="py-2">Cast and Crew</h4>
+            <Stack gap={2} direction="row" wrap="wrap">
+              {data.cast?.map((cast: any, index: number) => (
+                <Card
+                  key={index}
+                  style={{ maxWidth: 100, minWidth: 116 }}
+                  className="bg-primary"
+                >
+                  <CardImage
+                    src={
+                      cast.image.includes("pizza-pie")
+                        ? "http://via.placeholder.com/150x180"
+                        : cast.image
+                    }
+                    alt={cast.name}
+                  />
+                  <CardContainer>
+                    <Stack>
+                      <h6 style={{ textAlign: "center" }}>{cast.name}</h6>
+                      <h6 style={{ textAlign: "center", color: "GrayText" }}>
+                        {cast.role}
+                      </h6>
+                    </Stack>
+                  </CardContainer>
+                </Card>
+              ))}
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <h4 className="py-2">Comments</h4>
+            {comments?.map((comment, index: number) => (
+              <Stack key={index}>
+                <div className="py-1">
+                  <p>{comment.content.user}</p>
+                  <p>{comment.content.text}</p>
+                </div>
+              </Stack>
+            ))}
+          </Grid>
         </Grid>
       </Container>
     </div>
