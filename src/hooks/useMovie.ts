@@ -19,32 +19,30 @@ interface IMovie {
 }
 
 const getMovie = async (show_id: string) => {
-  let res = await fetch(
-    `${process.env.REACT_APP_BASE_URL}/movies?show_id=${show_id}`
-  );
+  let res = await fetch(`${process.env.REACT_APP_BASE_URL}/movie/${show_id}`);
   return await res.json();
 };
 
 const movie = proxy<{
-  id: string;
+  show_id: string;
   loading: boolean;
   data: Promise<IMovie>;
-  setId: (id: string) => void;
+  setShowId: (show_id: string) => void;
 }>({
-  id: "",
+  show_id: "",
   loading: false,
   data: getMovie("black_widow_2021"),
-  setId: (id: string) => {
+  setShowId: (id: string) => {
     movie.data = getMovie(id);
   },
 });
 
 const useMovie = (show_id: string) => {
-  const { setId, data, loading } = useSnapshot(movie);
+  const { setShowId, data, loading } = useSnapshot(movie);
 
   useEffect(() => {
-    setId(show_id);
-  }, [show_id, setId]);
+    setShowId(show_id);
+  }, [show_id, setShowId]);
   return { data, loading };
 };
 
