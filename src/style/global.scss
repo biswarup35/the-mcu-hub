@@ -41,6 +41,10 @@ p {
   margin: 0;
 }
 
+.py-05 {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
 .py-1 {
   padding-top: 0.5rem !important;
   padding-bottom: 0.5rem !important;
@@ -152,6 +156,9 @@ p {
   cursor: pointer;
 }
 
+.radius-05 {
+  border-radius: 0.12.5rem;
+}
 .radius-1 {
   border-radius: 0.25rem;
 }

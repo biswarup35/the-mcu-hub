@@ -16,4 +16,14 @@ const comments = proxy({
   },
 });
 
+export const commentBox = proxy({
+  show: true,
+  hide: () => {
+    commentBox.show = false;
+  },
+  showing: () => {
+    commentBox.show = true;
+  },
+});
+
 export default comments;

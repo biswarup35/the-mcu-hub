@@ -9,12 +9,17 @@ import {
   Button,
 } from "../components";
 import { useMovie, useList, useComments } from "../hooks";
+// import { IComments } from "../types";
+import { CommentForm, Comment } from "../views";
+import { commentBox } from "../App/comments";
+import { useSnapshot } from "valtio";
 
 const Movie = () => {
   const { show_id } = useParams();
   const { data } = useMovie(show_id ?? "");
   const { add, remove, inWatchList } = useList();
   const { comments } = useComments(data.id);
+  const { show } = useSnapshot(commentBox);
 
   const inTheWatchList = inWatchList(data.show_id);
   const watchListHandler = () => {
@@ -122,14 +127,21 @@ const Movie = () => {
               ))}
             </Stack>
           </Grid>
+          {/* comment section */}
           <Grid item xs={12} md={5}>
             <h4 className="py-2">Comments</h4>
-            {comments?.map((comment, index: number) => (
-              <Stack key={index}>
-                <div className="py-1">
-                  <p>{comment.content.user}</p>
-                  <p>{comment.content.text}</p>
-                </div>
+            {show && (
+              <div className="my-2">
+                <CommentForm parentId={data.id} />
+              </div>
+            )}
+            {comments?.map((comment) => (
+              <Stack key={comment.id}>
+                <Comment
+                  user={comment.content.user}
+                  text={comment.content.text}
+                  id={comment.id}
+                />
               </Stack>
             ))}
           </Grid>
