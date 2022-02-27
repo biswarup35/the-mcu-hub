@@ -4,7 +4,7 @@ import Logo from "../../Logo";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
   const loginHandler = () => {
     if (isAuthenticated) {
       logout();
@@ -26,6 +26,7 @@ const Navbar = () => {
               Watch List
             </Button>
           </Link>
+
           <Button
             onClick={loginHandler}
             color="inherit"
@@ -33,6 +34,7 @@ const Navbar = () => {
           >
             {isAuthenticated ? "Logout" : "Login"}
           </Button>
+          {isAuthenticated && <p>{`Hello, ${user?.name}`}</p>}
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,12 +1,15 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSnapshot } from "valtio";
-import { Fragment } from "react";
+import { Fragment, useCallback, useEffect } from "react";
 import { Button, Container, Grid, Stack } from "../components";
 import { useMovie } from "../hooks";
 import ticket from "../App/booking";
 import { Chair } from "../views";
 import { ScreenIcon } from "../icons";
+import { initializeRazorpay } from "../utils";
+import ticketState from "../App/tickets";
+import { useNavigate } from "react-router-dom";
 
 const getRowName = new Map<number, string>([
   [0, "A"],
@@ -28,17 +31,76 @@ export const Booking = () => {
   const { search } = useLocation();
   const id = new URLSearchParams(search).get("q");
   const { data } = useMovie(id ?? "");
+  const description = data?.title;
   const { rows, selectSeat, selectedSeats, setMovie } = useSnapshot(ticket, {
     sync: true,
   });
-
-  setMovie(data.title);
+  const { addTicket } = useSnapshot(ticketState, { sync: true });
+  const navigate = useNavigate();
 
   const total = selectedSeats().reduce((acc, seat) => {
     return acc + seat.price;
   }, 0);
 
   const seats = selectedSeats().map((seat) => seat.name);
+
+  // Things needed
+  // - user name
+  // - seats seats.toString()
+  // - total {total}
+  // - movie title {data.title}
+
+  const handlePayment = useCallback(async () => {
+    const res = await initializeRazorpay();
+    if (!res) {
+      alert("Razorpay not initialized");
+      return;
+    }
+    const data = await fetch(`${process.env.REACT_APP_BASE_URL}/payment`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: total,
+      }),
+    }).then((res) => res.json());
+    if (data.status === "created") {
+      const payment = new (window as any).Razorpay({
+        key: process.env.REACT_APP_RAZORPAY_KEY,
+        amount: data.amount.toString(),
+        name: "The MCU HUB",
+        description: description,
+        order_id: data.id,
+        handler: async (response: any) => {
+          // Payment verification is due
+
+          console.log(data.receipt);
+
+          addTicket({
+            movie: description,
+            amount: data.amount as number,
+            id: data.receipt as string,
+            seats: seats.toString(),
+            order_id: data.id as string,
+            create_at: new Date(data.created_at).toISOString(),
+          });
+          navigate(`/thankyou?id=${data.receipt}`);
+        },
+        prefill: {
+          name: "The MCU HUB",
+          email: "mcuhub@gmail.com",
+          contact: "9876543210",
+        },
+      });
+      payment.open();
+    }
+  }, [addTicket, description, navigate, seats, total]);
+
+  useEffect(() => {
+    setMovie(data.title);
+  }, [setMovie, data.title]);
 
   return (
     <div>
@@ -76,7 +138,12 @@ export const Booking = () => {
                     direction="row"
                     justifyContent="center"
                   >
-                    <Button className="px-2 py-1 radius-1 ">Confirm</Button>
+                    <Button
+                      onClick={handlePayment}
+                      className="px-2 py-1 radius-1 "
+                    >
+                      Confirm
+                    </Button>
                   </Stack>
                 </Fragment>
               )}

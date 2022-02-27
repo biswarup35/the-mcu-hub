@@ -9,6 +9,8 @@ import {
   BookingOutlet,
   Booking,
   LoginOutlet,
+  ThankYou,
+  Tickets,
 } from "./pages";
 import { Navbar, Footer, Loading } from "./views";
 function App() {
@@ -25,10 +27,13 @@ function App() {
           <Route path="/login" element={<LoginOutlet />}>
             <Route index element={<Login />} />
           </Route>
-          <Route path="/booking" element={<BookingOutlet />}>
-            <Route index element={<Booking />} />
+          {/* Auth Pages */}
+          <Route element={<BookingOutlet />}>
+            <Route path="/booking" element={<Booking />} />
           </Route>
           <Route path="*" element={<NotFound />} />
+          <Route path="/thankyou" element={<ThankYou />} />
+          <Route path="/tickets" element={<Tickets />} />
         </Routes>
       </Suspense>
       <Footer />
